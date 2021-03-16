@@ -30,10 +30,6 @@ class Shop{
     
     }
 
-    public function setName($name){
-        $this->name = $name;
-    }
-
     public function getName(){
         return $this->name;
     }
@@ -54,21 +50,35 @@ class Shop{
 
 class Product{
 
+    protected $id;
+
     protected $category;
 
-    public function __construct(string $category){
+    protected $price;
+
+    public function __construct(int $id, string $category, int $price){
     
+        $this->id = $id;
         $this->category = $category;
+        $this->price = $price;
     
+    }
+
+    public function getId(){
+        return $this->id;
     }
 
     public function getCategory(){
         return $this->category;
     }
 
+    public function getPrice(){
+        return $this->price;
+    }
+
 }
 
-class ProductType{
+class ProductType extends User{
 
     protected $type;
 
@@ -90,13 +100,15 @@ class User{
 
     protected $lastName;
 
-    protected $id;
+    private $id;
 
     protected $nickname;
 
     protected $password;
 
     protected $creditCard;
+
+    protected $boughtProducts = [];
     
     public function __construct(string $name, string $lastName, int $id, string $nickname, string $password, CreditCard $creditCard){
     
@@ -107,6 +119,16 @@ class User{
         $this->password = $password;
         $this->creditCard = $creditCard;
     
+    }
+
+    public function addProduct(ProductType $product){
+    
+        return $this->boughtProducts[] = $product;
+    
+    }
+
+    public function getBoughtProducts(){
+        return $this->boughtProducts;
     }
 
     public function getName(){
@@ -172,10 +194,11 @@ class CreditCard extends User{
 }
 
 $shop = new Shop('Zalando', '37/132/45004', 'Valeska-Gert-Str. 5, 10243 Berlin', 'infoazienda@zalando.it');
-$product = new Product('Tech');
+$product = new Product(12, 'Tech', 120);
 $productType = new ProductType('PC');
-$creditCard = new CreditCard('7890 4782 3890 2617', 'Edoardo Piragine', 122, '2025/02/08');
-$user = new User('Edoardo', 'Piragine', 23, 'gnappo', 'zalando2020', $creditCard);
+$creditCard = new CreditCard('7890 4782 3890 1***', 'Edoardo Piragine', 122, '2025/02/08');
+$user = new User('Edoardo', 'Piragine', 23, 'gnappo', '***********', $creditCard);
+$user->addProduct($productType);
 
 ?>
 
@@ -185,7 +208,7 @@ $user = new User('Edoardo', 'Piragine', 23, 'gnappo', 'zalando2020', $creditCard
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>OOP</title>
+    <title>OOP SHOP</title>
 </head>
 <body>
 
@@ -210,6 +233,7 @@ $user = new User('Edoardo', 'Piragine', 23, 'gnappo', 'zalando2020', $creditCard
 
             <span><span class="bold">Categoria prodotto:</span> <?php echo $product->getCategory(); ?></span>
             <span><span class="bold">Tipo prodotto:</span> <?php echo $productType->getType(); ?></span>
+            <span><span class="bold">Prezzo:</span> <?php echo $product->getPrice(); ?>$</span>
 
         </div>
 
