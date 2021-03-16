@@ -19,11 +19,14 @@ class Shop{
 
     private $headquarter;
 
-    public function __construct(string $name, int $VATNumber, string $headquarter){
+    private $email;
+
+    public function __construct(string $name, string $VATNumber, string $headquarter, string $email){
     
         $this->name = $name;
         $this->VATNumber = $VATNumber;
         $this->headquarter = $headquarter;
+        $this->email = $email;
     
     }
 
@@ -41,6 +44,10 @@ class Shop{
 
     public function getHeadquarter(){
         return $this->headquarter;
+    }
+
+    public function getEmail(){
+        return $this->email;
     }
 
 }
@@ -145,7 +152,7 @@ class CreditCard extends User{
 
 }
 
-$shop = new Shop('Zalando', 236578034, 'Fifth Avenue, New York');
+$shop = new Shop('Zalando', '37/132/45004', 'Valeska-Gert-Str. 5, 10243 Berlin', 'infoazienda@zalando.it');
 $product = new Product('Tech');
 $user = new User('Edoardo', 'Piragine', 23, 'gnappo', 'zalando2020');
 $creditCard = new CreditCard('7890 4782 3890 2617', 'Edoardo Piragine', 122, '2025/02/08');
@@ -173,6 +180,7 @@ $creditCard = new CreditCard('7890 4782 3890 2617', 'Edoardo Piragine', 122, '20
             <span><span class="bold">Nome negozio:</span> <?php echo $shop->getName(); ?></span>
             <span><span class="bold">Partita IVA:</span> <?php echo $shop->getVATNumber(); ?></span>
             <span><span class="bold">Indirizzo sede centrale:</span> <?php echo $shop->getHeadquarter(); ?></span>
+            <span><span class="bold">Email:</span> <?php echo $shop->getEmail(); ?></span>
 
         </div>
 
