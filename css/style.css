@@ -1,0 +1,29 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background: burlywood
+}
+.bold{
+    font-weight: bold;
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.shop-info{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5em;
+    margin-bottom: 50px;
+}
+.title{
+    text-align: center;
+    font-size: 55px;
+    color: rgb(138, 41, 41);
+    margin: 30px 0 30px 0;
+}
+.shop-details{
+    margin: 15px 0;
+    font-size: 25px;
+}
