@@ -68,6 +68,22 @@ class Product{
 
 }
 
+class ProductType{
+
+    protected $type;
+
+    public function __construct(string $type){
+    
+        $this->type = $type;
+    
+    }
+
+    public function getType(){
+        return $this->type;
+    }
+
+}
+
 class User{
 
     protected $name;
@@ -79,14 +95,17 @@ class User{
     protected $nickname;
 
     protected $password;
+
+    protected $creditCard;
     
-    public function __construct(string $name, string $lastName, int $id, string $nickname, string $password){
+    public function __construct(string $name, string $lastName, int $id, string $nickname, string $password, CreditCard $creditCard){
     
         $this->name = $name;
         $this->lastName = $lastName;
         $this->id = $id;
         $this->nickname = $nickname;
         $this->password = $password;
+        $this->creditCard = $creditCard;
     
     }
 
@@ -154,8 +173,9 @@ class CreditCard extends User{
 
 $shop = new Shop('Zalando', '37/132/45004', 'Valeska-Gert-Str. 5, 10243 Berlin', 'infoazienda@zalando.it');
 $product = new Product('Tech');
-$user = new User('Edoardo', 'Piragine', 23, 'gnappo', 'zalando2020');
+$productType = new ProductType('PC');
 $creditCard = new CreditCard('7890 4782 3890 2617', 'Edoardo Piragine', 122, '2025/02/08');
+$user = new User('Edoardo', 'Piragine', 23, 'gnappo', 'zalando2020', $creditCard);
 
 ?>
 
@@ -189,6 +209,7 @@ $creditCard = new CreditCard('7890 4782 3890 2617', 'Edoardo Piragine', 122, '20
         <div class="shop-info">
 
             <span><span class="bold">Categoria prodotto:</span> <?php echo $product->getCategory(); ?></span>
+            <span><span class="bold">Tipo prodotto:</span> <?php echo $productType->getType(); ?></span>
 
         </div>
 
