@@ -25,5 +25,9 @@
 }
 .shop-details{
     margin: 15px 0;
-    font-size: 25px;
+    font-size: 28px;
+}
+.product-num{
+    font-size: 20px;
+    margin-bottom: 10px;
 }

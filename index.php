@@ -13,20 +13,20 @@
 
 class Shop{
 
-    private $name;
+    protected $name;
+    protected $address;
+    protected $website;
+    protected $email;
+    protected $phoneNumber;
+    protected $products = [];
 
-    private $VATNumber;
-
-    private $headquarter;
-
-    private $email;
-
-    public function __construct(string $name, string $VATNumber, string $headquarter, string $email){
+    public function __construct(string $name, string $address, string $webSite, string $email, int $phoneNumber){
     
         $this->name = $name;
-        $this->VATNumber = $VATNumber;
-        $this->headquarter = $headquarter;
+        $this->address = $address;
+        $this->webSite = $webSite;
         $this->email = $email;
+        $this->phoneNumber = $phoneNumber;
     
     }
 
@@ -34,34 +34,122 @@ class Shop{
         return $this->name;
     }
 
-    public function getVATNumber(){
-        return $this->VATNumber;
+    public function getAddress(){
+        return $this->address;
     }
 
-    public function getHeadquarter(){
-        return $this->headquarter;
+    public function getWebsite(){
+        return $this->website;
     }
 
     public function getEmail(){
         return $this->email;
     }
 
+    public function getPhoneNumber(){
+        return $this->phoneNumber;
+    }
+
+    public function getProducts(){
+        return $this->products;
+    }
+
+}
+
+class User{
+
+    protected $name;
+    protected $lastname;
+    protected $nickname;
+    protected $id;
+    protected $profileImg;
+    protected $birthDate;
+    protected $password;
+    protected $primeClient = 'Si';
+    protected $products = [];
+
+    public function __construct(string $name, string $lastname, string $nickname, int $id, string $profileImg, string $birthDate, string $password){
+    
+        $this->name = $name;
+        $this->lastname = $lastname;
+        $this->nickname = $nickname;
+        $this->id = $id;
+        $this->profileImg = $profileImg;
+        $this->birthDate = $birthDate;
+        $this->password = $password;
+    
+    }
+
+    public function getName(){
+        return $this->name;
+    }
+
+    public function getLastName(){
+        return $this->lastname;
+    }
+
+    public function getNickName(){
+        return $this->nickname;
+    }
+
+    public function getId(){
+        return $this->id;
+    }
+
+    public function getProfileImg(){
+        return $this->profileImg;
+    }
+
+    public function getBirthDate(){
+        return $this->birthDate;
+    }
+
+    public function getPassword(){
+        return $this->password;
+    }
+
+    public function getPrimeClient(){
+        return $this->primeClient;
+    }
+
+    public function addProduct(Product $product){
+        $this->products[] = $product;
+    }
+
+    public function getProducts(){
+        return $this->products;
+    }
+
 }
 
 class Product{
 
-    protected $id;
-
-    protected $category;
-
+    protected $name;
     protected $price;
+    protected $id;
+    protected $category;
+    protected $model;
+    protected $material;
+    protected $available = 'Non disponibile';
+    protected $deliveryTime = '5 giorni lavorativi';
 
-    public function __construct(int $id, string $category, int $price){
+    public function __construct(string $name, int $price, int $id, string $category, string $model, string $material){
     
+        $this->name = $name;
+        $this->price = $price;
         $this->id = $id;
         $this->category = $category;
-        $this->price = $price;
+        $this->model = $model;
+        $this->material = $material;
     
+    }
+
+    public function getName(){
+        return $this->name;
+    }
+
+    public function getPrice(){
+        return $this->price;
     }
 
     public function getId(){
@@ -72,133 +160,88 @@ class Product{
         return $this->category;
     }
 
-    public function getPrice(){
-        return $this->price;
+    public function getModel(){
+        return $this->model;
+    }
+
+    public function getSize(){
+        return $this->size;
+    }
+
+    public function getMaterial(){
+        return $this->material;
+    }
+
+    public function getAvailability(){
+        return $this->available;
+    }
+
+    public function getDeliveryTime(){
+        return $this->deliveryTime;
     }
 
 }
 
-class ProductType extends User{
+class PC extends Product{
 
-    protected $type;
+    protected $available = 'Disponibile';
 
-    public function __construct(string $type){
-    
-        $this->type = $type;
-    
-    }
-
-    public function getType(){
-        return $this->type;
-    }
+    protected $deliveryTime = '2 giorni lavorativi';
 
 }
 
-class User{
+class Console extends Product{
 
-    protected $name;
-
-    protected $lastName;
-
-    private $id;
-
-    protected $nickname;
-
-    protected $password;
-
-    protected $creditCard;
-
-    protected $boughtProducts = [];
-    
-    public function __construct(string $name, string $lastName, int $id, string $nickname, string $password, CreditCard $creditCard){
-    
-        $this->name = $name;
-        $this->lastName = $lastName;
-        $this->id = $id;
-        $this->nickname = $nickname;
-        $this->password = $password;
-        $this->creditCard = $creditCard;
-    
-    }
-
-    public function addProduct(ProductType $product){
-    
-        return $this->boughtProducts[] = $product;
-    
-    }
-
-    public function getBoughtProducts(){
-        return $this->boughtProducts;
-    }
-
-    public function getName(){
-        return $this->name;
-    }
-
-    public function getLastname(){
-        return $this->lastName;
-    }
-
-    public function getId(){
-        return $this->id;
-    }
-
-    public function getNickname(){
-        return $this->nickname;
-    }
-
-    public function getPassword(){
-        return $this->password;
-    }
+    protected $deliveryTime = 'Non disponibile';
 
 }
 
-class CreditCard extends User{
+class CreditCard{
 
-    protected $creditCardNumber;
-
-    protected $creditCardHolder;
-
-    protected $securityNumber;
-
+    protected $cardHolder;
+    protected $deliveryAddress;
+    protected $cardNumber;
     protected $expirationDate;
+    protected $securityCode;
 
-    protected $expired = false;
+    public function __construct(string $cardHolder, string $deliveryAddress, string $cardNumber, string $expirationDate, int $securityCode){
     
-
-    public function __construct(string $creditCardNumber, string $creditCardHolder, int $securityNumber, string $expirationDate){
-    
-        $this->creditCardNumber = $creditCardNumber;
-        $this->creditCardHolder = $creditCardHolder;
-        $this->securityNumber = $securityNumber;
+        $this->cardHolder = $cardHolder;
+        $this->deliveryAddress = $deliveryAddress;
+        $this->cardNumber = $cardNumber;
         $this->expirationDate = $expirationDate;
+        $this->securityCode = $securityCode;
     
     }
 
-    public function getCard(){
-        return $this->creditCardNumber;
+    public function getCardHolder(){
+        return $this->cardHolder;
     }
 
-    public function getCreditCardHolder(){
-        return $this->creditCardHolder;
+    public function getDeliveryAddress(){
+        return $this->deliveryAddress;
     }
 
-    public function getSecurityNumber(){
-        return $this->securityNumber;
+    public function getCardNumber(){
+        return $this->cardNumber;
     }
 
     public function getExpirationDate(){
         return $this->expirationDate;
     }
 
+    public function getSecurityCode(){
+        return $this->securityCode;
+    }
+
 }
 
-$shop = new Shop('Zalando', '37/132/45004', 'Valeska-Gert-Str. 5, 10243 Berlin', 'infoazienda@zalando.it');
-$product = new Product(12, 'Tech', 120);
-$productType = new ProductType('PC');
-$creditCard = new CreditCard('7890 4782 3890 1***', 'Edoardo Piragine', 122, '2025/02/08');
-$user = new User('Edoardo', 'Piragine', 23, 'gnappo', '***********', $creditCard);
-$user->addProduct($productType);
+$shop = new Shop('Zalando', 'Valeska-Gert-Str. 5, 10243 Berlin', 'www.zalando.com', 'infoazienda@zalando.it', 0230300067);
+$user = new User('Edoardo', 'Piragine', 'edopira', 23, 'profile.jpg', '22/06/1993', '***********');
+$pc = new PC('HP 24"', 140, 254, 'PC', 'Monitor', 'Still & Plastic');
+$console = new Console('Playstation 5', 500, 102, 'Videogaming', 'Console', 'Plastic');
+$creditCard = new CreditCard('Edoardo Piragine', 'Via della Meloria, 5', '3427 4095 7504 ****', '2025/01/07', 829);
+$user->addProduct($pc);
 
 ?>
 
@@ -221,19 +264,34 @@ $user->addProduct($productType);
         <div class="shop-info">
 
             <span><span class="bold">Nome negozio:</span> <?php echo $shop->getName(); ?></span>
-            <span><span class="bold">Partita IVA:</span> <?php echo $shop->getVATNumber(); ?></span>
-            <span><span class="bold">Indirizzo sede centrale:</span> <?php echo $shop->getHeadquarter(); ?></span>
+            <span><span class="bold">Indirizzo sede centrale:</span> <?php echo $shop->getAddress(); ?></span>
+            <span><span class="bold">Sito web:</span> <?php echo $shop->getWebsite(); ?></span>
             <span><span class="bold">Email:</span> <?php echo $shop->getEmail(); ?></span>
+            <span><span class="bold">Numero verde:</span> <?php echo $shop->getPhoneNumber(); ?></span>
 
         </div>
 
-        <h3 class="shop-details">Prodotto selezionato</h3>
+        <h3 class="shop-details">Prodotti selezionati</h3>
+
+        <h4 class="product-num">Primo prodotto</h4>
 
         <div class="shop-info">
 
-            <span><span class="bold">Categoria prodotto:</span> <?php echo $product->getCategory(); ?></span>
-            <span><span class="bold">Tipo prodotto:</span> <?php echo $productType->getType(); ?></span>
-            <span><span class="bold">Prezzo:</span> <?php echo $product->getPrice(); ?>$</span>
+            <span><span class="bold">Categoria prodotto:</span> <?php echo $pc->getCategory(); ?></span>
+            <span><span class="bold">Tipo prodotto:</span> <?php echo $pc->getModel(); ?></span>
+            <span><span class="bold">Modello prodotto:</span> <?php echo $pc->getName(); ?></span>
+            <span><span class="bold">Prezzo:</span> <?php echo $pc->getPrice(); ?>$</span>
+
+        </div>
+
+        <h4 class="product-num">Secondo prodotto</h4>
+
+        <div class="shop-info">
+
+            <span><span class="bold">Categoria prodotto:</span> <?php echo $console->getCategory(); ?></span>
+            <span><span class="bold">Tipo prodotto:</span> <?php echo $console->getModel(); ?></span>
+            <span><span class="bold">Modello prodotto:</span> <?php echo $console->getName(); ?></span>
+            <span><span class="bold">Prezzo:</span> <?php echo $console->getPrice(); ?>$</span>
 
         </div>
 
@@ -246,17 +304,28 @@ $user->addProduct($productType);
             <span><span class="bold">ID:</span> <?php echo $user->getId(); ?></span>
             <span><span class="bold">Nickname:</span> <?php echo $user->getNickname(); ?></span>
             <span><span class="bold">Password:</span> <?php echo $user->getPassword(); ?></span>
+            <span><span class="bold">Indirizzo spedizione:</span> <?php echo $creditCard->getDeliveryAddress(); ?></span>
+            <span><span class="bold">Cliente PRIME:</span> <?php echo $user->getPrimeClient(); ?></span>
 
         </div>
 
-        <h3 class="shop-details">Informazioni Pagamento</h3>
+        <h3 class="shop-details">Informazioni pagamento</h3>
 
         <div class="shop-info">
 
-            <span><span class="bold">Numero carta di credito:</span> <?php echo $creditCard->getCard(); ?></span>
-            <span><span class="bold">Intestatario carta di credito:</span> <?php echo $creditCard->getCreditCardHolder(); ?></span>
-            <span><span class="bold">CVV:</span> <?php echo $creditCard->getSecurityNumber(); ?></span>
+            <span><span class="bold">Numero carta di credito:</span> <?php echo $creditCard->getCardNumber(); ?></span>
+            <span><span class="bold">Intestatario carta di credito:</span> <?php echo $creditCard->getCardHolder(); ?></span>
+            <span><span class="bold">CVV:</span> <?php echo $creditCard->getSecurityCode(); ?></span>
             <span><span class="bold">Data di scadenza:</span> <?php echo $creditCard->getExpirationDate(); ?></span>
+
+        </div>
+
+        <h3 class="shop-details">Informazioni spedizione</h3>
+
+        <div class="shop-info">
+
+            <span><span class="bold">Indirizzo spedizione:</span> <?php echo $creditCard->getDeliveryAddress(); ?></span>
+            <span><span class="bold">Tempi spedizione:</span> <?php echo $pc->getDeliveryTime(); ?></span>
 
         </div>
 
